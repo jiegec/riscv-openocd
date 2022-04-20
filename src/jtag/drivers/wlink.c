@@ -442,6 +442,7 @@ int wlink_quitreset(void)
 	usleep(300000);
 	return 0;
 }
+void wlink_ramcodewrite(uint8_t *buffer, int size);
 int wlink_ready_write(uint32_t address)
 {
 	unsigned char txbuf[24];
@@ -1093,7 +1094,7 @@ int wlink_init(void)
 			pSetTimeout(gIndex, 5000, 5000);
 		}
 	}
-#else if
+#else
 
 	if (jtag_libusb_open(wlink_vids, wlink_pids, &wfd, NULL) != ERROR_OK)
 	{
@@ -1278,7 +1279,7 @@ int wlink_quit(void)
 		FreeLibrary(hModule);
 		hModule = 0;
 	}
-#else if
+#else
 	jtag_libusb_close(wfd);
 #endif
 	return ERROR_OK;
